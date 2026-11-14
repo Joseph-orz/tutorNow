@@ -33,6 +33,14 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
         <div className="w-full rounded-2xl border border-border-color bg-bg-surface p-6 shadow-lg transition-colors duration-300 md:p-8">
           {children}
         </div>
+        <p className="mt-4 text-center text-xs text-text-muted">
+          <a
+            href="/about"
+            className="font-semibold text-brand-poli transition-colors hover:text-brand-poli-hover focus:outline-none focus:ring-2 focus:ring-brand-poli"
+          >
+            Acerca de tutorNow
+          </a>
+        </p>
       </div>
     </main>
   );
