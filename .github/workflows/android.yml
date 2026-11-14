@@ -30,6 +30,8 @@ jobs:
 
       - name: Build Next.js static export
         working-directory: frontend
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.BACKEND_URL }}
         run: npm run build:web
 
       - name: Sync Capacitor
