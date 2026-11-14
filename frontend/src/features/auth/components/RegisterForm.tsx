@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { HttpError } from '@/lib/httpClient';
+import { config } from '@/lib/config';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
@@ -182,6 +183,7 @@ export function RegisterForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
       <h1 className="text-xl font-semibold text-text-main">Crear cuenta</h1>
+      <p className="text-xs text-text-muted break-all">API: {config.apiUrl}</p>
 
       {error && !Object.keys(fieldErrors).length ? <Alert type="error">{error}</Alert> : null}
 
