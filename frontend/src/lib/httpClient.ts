@@ -45,7 +45,7 @@ async function parseError(response: Response, options: RequestOptions): Promise<
 export const httpClient = {
   async get<T>(path: string, options: RequestOptions = {}): Promise<T> {
     const response = await fetch(`${config.apiUrl}${path}`, {
-      headers: buildHeaders(options.auth),
+      headers: buildHeaders(options.auth, false),
     });
     if (!response.ok) await parseError(response, options);
     return response.json() as Promise<T>;
@@ -54,7 +54,7 @@ export const httpClient = {
   async post<T>(path: string, body?: unknown, options: RequestOptions = {}): Promise<T> {
     const response = await fetch(`${config.apiUrl}${path}`, {
       method: 'POST',
-      headers: buildHeaders(options.auth),
+      headers: buildHeaders(options.auth, body !== undefined),
       body: body !== undefined ? JSON.stringify(body) : undefined,
     });
     if (!response.ok) await parseError(response, options);
@@ -64,7 +64,7 @@ export const httpClient = {
   async put<T>(path: string, body?: unknown, options: RequestOptions = {}): Promise<T> {
     const response = await fetch(`${config.apiUrl}${path}`, {
       method: 'PUT',
-      headers: buildHeaders(options.auth),
+      headers: buildHeaders(options.auth, body !== undefined),
       body: body !== undefined ? JSON.stringify(body) : undefined,
     });
     if (!response.ok) await parseError(response, options);
@@ -74,7 +74,7 @@ export const httpClient = {
   async delete<T>(path: string, options: RequestOptions = {}): Promise<T> {
     const response = await fetch(`${config.apiUrl}${path}`, {
       method: 'DELETE',
-      headers: buildHeaders(options.auth),
+      headers: buildHeaders(options.auth, false),
     });
     if (!response.ok) await parseError(response, options);
     if (response.status === 204) return undefined as T;
@@ -84,7 +84,7 @@ export const httpClient = {
   async patch<T>(path: string, body?: unknown, options: RequestOptions = {}): Promise<T> {
     const response = await fetch(`${config.apiUrl}${path}`, {
       method: 'PATCH',
-      headers: buildHeaders(options.auth),
+      headers: buildHeaders(options.auth, body !== undefined),
       body: body !== undefined ? JSON.stringify(body) : undefined,
     });
     if (!response.ok) await parseError(response, options);
@@ -93,8 +93,11 @@ export const httpClient = {
   },
 };
 
-function buildHeaders(withAuth = false): HeadersInit {
-  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+function buildHeaders(withAuth = false, hasBody = false): HeadersInit {
+  const headers: Record<string, string> = {};
+  // Only set Content-Type when a body is present. Sending it on bodyless GETs
+  // turns them into non-simple CORS requests and forces a preflight.
+  if (hasBody) headers['Content-Type'] = 'application/json';
   if (withAuth) {
     const token = useAuthStore.getState().token;
     if (token) headers['Authorization'] = `Bearer ${token}`;
