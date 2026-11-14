@@ -183,6 +183,7 @@ export function RegisterForm() {
     <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
       <h1 className="text-xl font-semibold text-text-main">Crear cuenta</h1>
 
+
       {error && !Object.keys(fieldErrors).length ? <Alert type="error">{error}</Alert> : null}
 
       <Input
