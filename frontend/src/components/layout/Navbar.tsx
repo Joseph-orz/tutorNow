@@ -8,6 +8,7 @@ import {
   BookOpenCheck,
   ChevronDown,
   Inbox,
+  Info,
   KeyRound,
   LogOut,
   MessageSquare,
@@ -101,6 +102,7 @@ export function Navbar() {
     ...(isTutor ? [{ href: "/tutoring", icon: BookOpenCheck, label: "Panel del tutor" }] : []),
     ...(isAdmin ? [{ href: "/admin/users", icon: Flag, label: "Panel de administracion" }] : []),
     { href: "/dev/inbox", icon: Inbox, label: "Bandeja de entrada" },
+    { href: "/about", icon: Info, label: "Acerca de" },
     { href: "/settings/password", icon: KeyRound, label: "Cambiar contraseña" },
     { action: handleLogout, icon: LogOut, label: "Cerrar sesión", danger: true },
   ];
