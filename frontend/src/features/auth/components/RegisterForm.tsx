@@ -36,17 +36,37 @@ export function RegisterForm() {
   const [carreras, setCarreras] = useState<CatalogItem[]>([]);
   const [semestres, setSemestres] = useState<CatalogItem[]>([]);
   const [catalogsLoading, setCatalogsLoading] = useState(true);
+  const [debugLog, setDebugLog] = useState<string>('');
 
   useEffect(() => {
-    Promise.all([fetchCarreras(), fetchSemestres()])
-      .then(([c, s]) => {
+    const log: string[] = [];
+    log.push('URL: ' + config.apiUrl);
+    fetchCarreras()
+      .then((c) => {
+        log.push('carreras OK: ' + c.length + ' items');
         setCarreras(c);
+      })
+      .catch((e: any) => {
+        log.push('carreras ERROR: ' + (e?.message ?? String(e)));
+        log.push('status: ' + (e?.status ?? 'n/a'));
+        log.push('name: ' + (e?.name ?? 'n/a'));
+        console.error('fetchCarreras failed', e);
+      });
+    fetchSemestres()
+      .then((s) => {
+        log.push('semestres OK: ' + s.length + ' items');
         setSemestres(s);
       })
-      .catch(() => {
-        setError('No se pudieron cargar las carreras y semestres. Recarga la pagina.');
+      .catch((e: any) => {
+        log.push('semestres ERROR: ' + (e?.message ?? String(e)));
+        log.push('status: ' + (e?.status ?? 'n/a'));
+        log.push('name: ' + (e?.name ?? 'n/a'));
+        console.error('fetchSemestres failed', e);
       })
-      .finally(() => setCatalogsLoading(false));
+      .finally(() => {
+        setCatalogsLoading(false);
+        setDebugLog(log.join(' | '));
+      });
   }, []);
 
   function validateField(name: string, value: string): string | undefined {
@@ -184,6 +204,7 @@ export function RegisterForm() {
     <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
       <h1 className="text-xl font-semibold text-text-main">Crear cuenta</h1>
       <p className="text-xs text-text-muted break-all">API: {config.apiUrl}</p>
+      {debugLog ? <p className="text-xs text-red-500 break-all">DBG: {debugLog}</p> : null}
 
       {error && !Object.keys(fieldErrors).length ? <Alert type="error">{error}</Alert> : null}
 
