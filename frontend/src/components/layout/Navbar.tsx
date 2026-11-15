@@ -110,7 +110,7 @@ export function Navbar() {
   return (
     <>
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-border-color bg-bg-surface/80 backdrop-blur-sm shadow-sm transition-colors duration-300">
+      <header className="sticky top-0 z-40 border-b border-border-color bg-bg-surface/80 backdrop-blur-sm shadow-sm transition-colors duration-300" style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}>
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-3 px-4">
           {/* Logo */}
           <Link href="/dashboard" className="group flex items-center gap-2.5">
@@ -257,7 +257,7 @@ export function Navbar() {
           />
           {/* Drawer panel */}
           <div className="relative z-10 flex flex-col w-full max-w-sm bg-bg-surface border-r border-border-color">
-            <div className="flex h-16 items-center justify-between border-b border-border-color px-4">
+            <div className="flex h-16 items-center justify-between border-b border-border-color px-4" style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}>
               <span className="text-lg font-semibold text-text-main">Menú</span>
               <button
                 onClick={() => setMobileMenuOpen(false)}
