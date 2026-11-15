@@ -42,7 +42,7 @@ describe('RequestCard', () => {
     expect(screen.getByText('3 propuestas')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /ver detalle/i })).toHaveAttribute(
       'href',
-      '/tutoring/requests/7',
+      '/tutoring/requests/detail?id=7',
     );
   });
 

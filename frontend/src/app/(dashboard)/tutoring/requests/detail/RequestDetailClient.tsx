@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Suspense, useCallback, useEffect, useState } from 'react';
 import { ArrowLeft, CalendarClock, Trash2, User } from 'lucide-react';
 import { Alert } from '@/components/ui/Alert';
@@ -57,9 +57,10 @@ export default function TutoringRequestDetailPage() {
 }
 
 function TutoringRequestDetailContent() {
-  const params = useParams<{ id: string }>();
-  const requestId = Number(params.id);
   const searchParams = useSearchParams();
+  const requestIdParam = searchParams.get('id');
+  const requestId = Number(requestIdParam);
+  const hasValidId = Number.isInteger(requestId) && requestId > 0;
   const fromAgenda = searchParams.get('from') === 'agenda';
   const vistaParam = searchParams.get('vista');
   const vista: VistaSolicitudes | null =
@@ -97,6 +98,13 @@ function TutoringRequestDetailContent() {
     setLoading(true);
     setLoadError(null);
     setAccessDenied(false);
+
+    if (!hasValidId) {
+      setLoading(false);
+      setLoadError('No encontramos la asesoria solicitada.');
+      return;
+    }
+
     try {
       setRequest(await fetchTutoringRequest(requestId));
     } catch (err) {
@@ -113,7 +121,7 @@ function TutoringRequestDetailContent() {
     } finally {
       setLoading(false);
     }
-  }, [requestId]);
+  }, [hasValidId, requestId]);
 
   useEffect(() => {
     void loadRequest();

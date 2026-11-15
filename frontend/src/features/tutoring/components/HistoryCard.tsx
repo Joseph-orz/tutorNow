@@ -93,7 +93,7 @@ export function HistoryCard({ request, detailHref }: HistoryCardProps) {
         <p className="rounded-lg border border-brand-poli/30 bg-brand-poli/10 p-3 text-sm text-brand-poli">
           Pendiente por calificar.{' '}
           <Link
-            href={detailHref ?? `/tutoring/requests/${request.id}`}
+            href={detailHref ?? `/tutoring/requests/detail?id=${request.id}`}
             className="font-semibold underline focus:outline-none focus:ring-2 focus:ring-brand-poli"
           >
             Calificar asesoría
@@ -109,7 +109,7 @@ export function HistoryCard({ request, detailHref }: HistoryCardProps) {
 
       <div className="mt-auto flex items-center justify-end pt-2">
         <Link
-          href={detailHref ?? `/tutoring/requests/${request.id}`}
+          href={detailHref ?? `/tutoring/requests/detail?id=${request.id}`}
           className="inline-flex min-h-[44px] items-center gap-1 rounded-lg px-2 text-sm font-semibold text-brand-poli transition-colors duration-200 hover:bg-brand-poli/10 focus:outline-none focus:ring-2 focus:ring-brand-poli"
         >
           Ver detalle

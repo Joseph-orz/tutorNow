@@ -269,7 +269,7 @@ describe('TutorAgendaPage', () => {
     expect(screen.getByText('1 asesoría')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /ver asesor/i })).toHaveAttribute(
       'href',
-      '/tutoring/requests/1?from=agenda',
+      '/tutoring/requests/detail?id=1&from=agenda',
     );
   });
 

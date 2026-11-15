@@ -14,6 +14,10 @@ vi.mock('next/link', () => ({
   ),
 }));
 
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ back: vi.fn(), push: vi.fn() }),
+}));
+
 describe('AboutPage', () => {
   it('renderiza el titulo principal', () => {
     render(<AboutPage />);

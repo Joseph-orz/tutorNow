@@ -12,9 +12,10 @@ const pushMock = vi.fn();
 let mockQuery: Record<string, string> = {};
 
 vi.mock('next/navigation', () => ({
-  useParams: () => ({ tutorId: '5' }),
   useRouter: () => ({ push: pushMock }),
-  useSearchParams: () => ({ get: (key: string) => mockQuery[key] ?? null }),
+  useSearchParams: () => ({
+    get: (key: string) => (key === 'id' ? '5' : mockQuery[key] ?? null),
+  }),
 }));
 
 vi.mock('next/link', () => ({
@@ -181,7 +182,7 @@ describe('TutorProfilePage', () => {
     await user.click(await screen.findByRole('button', { name: /aceptar/i }));
 
     expect(tutoringApi.acceptProposal).toHaveBeenCalledWith(10);
-    expect(pushMock).toHaveBeenCalledWith('/tutoring/requests/7');
+    expect(pushMock).toHaveBeenCalledWith('/tutoring/requests/detail?id=7');
   });
 
   it('al rechazar la propuesta desde el perfil redirige al detalle de la asesoria', async () => {
@@ -194,7 +195,7 @@ describe('TutorProfilePage', () => {
     await user.click(await screen.findByRole('button', { name: /rechazar/i }));
 
     expect(tutoringApi.rejectProposal).toHaveBeenCalledWith(10);
-    expect(pushMock).toHaveBeenCalledWith('/tutoring/requests/7');
+    expect(pushMock).toHaveBeenCalledWith('/tutoring/requests/detail?id=7');
   });
 
   it('sin propuesta en contexto solo muestra la informacion del perfil', async () => {

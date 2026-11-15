@@ -388,13 +388,13 @@ function TutorRequestsView({ vista: tutorVista, materias }: RequestsViewProps) {
               ) : tutorVista === 'coordinacion' ? (
                 <AcceptedRequestCard
                   request={request}
-                  detailHref={`/tutoring/requests/${request.id}?from=requests&vista=coordinacion`}
+                  detailHref={`/tutoring/requests/detail?id=${request.id}&from=requests&vista=coordinacion`}
                   onUpdated={loadEstudianteRequests}
                 />
               ) : tutorVista === 'historial' ? (
                 <HistoryCard
                   request={request}
-                  detailHref={`/tutoring/requests/${request.id}?from=requests&vista=historial`}
+                  detailHref={`/tutoring/requests/detail?id=${request.id}&from=requests&vista=historial`}
                 />
               ) : (
                 <RequestCard request={request} />
@@ -562,13 +562,13 @@ function StudentRequestsView({ vista, materias }: RequestsViewProps) {
               ) : vista === 'coordinacion' ? (
                 <AcceptedRequestCard
                   request={request}
-                  detailHref={`/tutoring/requests/${request.id}?from=requests&vista=coordinacion`}
+                  detailHref={`/tutoring/requests/detail?id=${request.id}&from=requests&vista=coordinacion`}
                   onUpdated={loadRequests}
                 />
               ) : (
                 <HistoryCard
                   request={request}
-                  detailHref={`/tutoring/requests/${request.id}?from=requests&vista=historial`}
+                  detailHref={`/tutoring/requests/detail?id=${request.id}&from=requests&vista=historial`}
                 />
               )}
             </li>

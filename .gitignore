@@ -34,6 +34,7 @@ backend/*.log
 coverage/
 .nyc_output/
 
-# Misc
-*.tmp
-*.bak
+# iOS (Capacitor)
+frontend/ios/App/Pods/
+frontend/ios/App/build/
+frontend/ios/App/DerivedData/

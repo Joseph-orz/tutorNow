@@ -18,6 +18,9 @@ const config: CapacitorConfig = {
   //   url: 'http://10.0.2.2:3000',
   //   cleartext: true,
   // },
+  ios: {
+    scheme: 'App',
+  },
   plugins: {
     SplashScreen: {
       launchShowDuration: 2000,

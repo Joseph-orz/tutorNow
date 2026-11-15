@@ -204,7 +204,7 @@ export function PublishRequestForm() {
             {pendientes.map((pendiente) => (
               <li key={pendiente.asesoriaId}>
                 <Link
-                  href={`/tutoring/requests/${pendiente.solicitudId}`}
+                  href={`/tutoring/requests/detail?id=${pendiente.solicitudId}`}
                   className="font-semibold underline focus:outline-none focus:ring-2 focus:ring-brand-poli"
                 >
                   {pendiente.tema}
@@ -364,7 +364,7 @@ export function PublishRequestForm() {
                           {tutor.materias.map((materia) => materia.label).join(', ')}
                         </span>
                         <a
-                          href={`/tutoring/tutors/${tutor.id}`}
+                          href={`/tutoring/tutors/detail?id=${tutor.id}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="ml-auto text-xs text-brand-poli hover:underline"
