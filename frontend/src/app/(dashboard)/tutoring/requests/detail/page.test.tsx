@@ -14,7 +14,6 @@ const { searchParamsMock } = vi.hoisted(() => ({
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: pushMock }),
-  useParams: () => ({ id: '1' }),
   useSearchParams: () => searchParamsMock.current,
 }));
 
@@ -59,7 +58,7 @@ describe('TutoringRequestDetailPage', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.clearAllMocks();
-    searchParamsMock.current = new URLSearchParams();
+    searchParamsMock.current = new URLSearchParams('id=1');
     useAuthStore.setState({
       token: 'token',
       user: { id: 2, email: 'ana@elpoli.edu.co', fullName: 'Ana Perez', role: 'ESTUDIANTE' },
@@ -364,7 +363,7 @@ describe('TutoringRequestDetailPage', () => {
   });
 
   it('vuelve a la agenda cuando la asesoria se abrio desde alli', async () => {
-    searchParamsMock.current = new URLSearchParams('from=agenda');
+    searchParamsMock.current = new URLSearchParams('id=1&from=agenda');
     vi.mocked(tutoringApi.fetchTutoringRequest).mockResolvedValue(
       buildRequest({ estado: 'EN_PROCESO' }),
     );
@@ -380,7 +379,7 @@ describe('TutoringRequestDetailPage', () => {
   });
 
   it('vuelve a la vista de coordinacion cuando se abrio desde alli', async () => {
-    searchParamsMock.current = new URLSearchParams('from=requests&vista=coordinacion');
+    searchParamsMock.current = new URLSearchParams('id=1&from=requests&vista=coordinacion');
     vi.mocked(tutoringApi.fetchTutoringRequest).mockResolvedValue(
       buildRequest({ estado: 'CONFIRMADA' }),
     );
@@ -392,7 +391,7 @@ describe('TutoringRequestDetailPage', () => {
   });
 
   it('vuelve al historial cuando la asesoria se abrio desde alli', async () => {
-    searchParamsMock.current = new URLSearchParams('from=requests&vista=historial');
+    searchParamsMock.current = new URLSearchParams('id=1&from=requests&vista=historial');
     vi.mocked(tutoringApi.fetchTutoringRequest).mockResolvedValue(
       buildRequest({
         estado: 'CONFIRMADA',

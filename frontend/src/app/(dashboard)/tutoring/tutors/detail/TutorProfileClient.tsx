@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, MessageSquareQuote, User } from 'lucide-react';
 import { Alert } from '@/components/ui/Alert';
@@ -44,9 +44,10 @@ export default function TutorProfilePage() {
 }
 
 function TutorProfileContent() {
-  const params = useParams<{ tutorId: string }>();
-  const tutorId = Number(params.tutorId);
   const searchParams = useSearchParams();
+  const tutorIdParam = searchParams.get('id');
+  const tutorId = Number(tutorIdParam);
+  const hasValidId = Number.isInteger(tutorId) && tutorId > 0;
   const router = useRouter();
   const solicitudIdParam = searchParams.get('solicitud');
   const proposalIdParam = searchParams.get('proposal');
@@ -88,6 +89,13 @@ function TutorProfileContent() {
     setLoading(true);
     setLoadError(null);
     setActionError(null);
+
+    if (!hasValidId) {
+      setLoading(false);
+      setLoadError('No encontramos el perfil del tutor.');
+      return;
+    }
+
     try {
       setProfile(await fetchTutorProfile(tutorId));
       if (solicitudIdParam) {
@@ -106,7 +114,7 @@ function TutorProfileContent() {
     } finally {
       setLoading(false);
     }
-  }, [tutorId, solicitudIdParam]);
+  }, [hasValidId, tutorId, solicitudIdParam]);
 
   useEffect(() => {
     void loadProfile();
@@ -118,7 +126,7 @@ function TutorProfileContent() {
     setActionError(null);
     try {
       await acceptProposal(proposal.id);
-      router.push(`/tutoring/requests/${proposal.solicitudId}`);
+      router.push(`/tutoring/requests/detail?id=${proposal.solicitudId}`);
     } catch (err) {
       setActionError(
         err instanceof HttpError
@@ -135,7 +143,7 @@ function TutorProfileContent() {
     setActionError(null);
     try {
       await rejectProposal(proposal.id);
-      router.push(`/tutoring/requests/${proposal.solicitudId}`);
+      router.push(`/tutoring/requests/detail?id=${proposal.solicitudId}`);
     } catch (err) {
       setActionError(
         err instanceof HttpError
@@ -172,7 +180,7 @@ function TutorProfileContent() {
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">
       <Link
-        href={solicitudIdParam ? `/tutoring/requests/${solicitudIdParam}` : '/tutoring/requests'}
+        href={solicitudIdParam ? `/tutoring/requests/detail?id=${solicitudIdParam}` : '/tutoring/requests'}
         className="inline-flex w-fit items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-text-muted transition-colors duration-200 hover:text-brand-poli focus:outline-none focus:ring-2 focus:ring-brand-poli"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden="true" />

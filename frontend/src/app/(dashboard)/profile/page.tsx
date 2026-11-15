@@ -111,7 +111,7 @@ export default function ProfilePage() {
           <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-lg font-semibold text-text-main">Perfil de tutor</h2>
             <Link
-              href={`/tutoring/tutors/${tutor.id}`}
+              href={`/tutoring/tutors/detail?id=${tutor.id}`}
               className="inline-flex min-h-[44px] items-center rounded-lg px-2 text-sm font-semibold text-brand-poli transition-colors duration-200 hover:bg-brand-poli/10 focus:outline-none focus:ring-2 focus:ring-brand-poli"
             >
               Ver mi perfil público
@@ -142,7 +142,7 @@ export default function ProfilePage() {
             {resenas.pendientes.map((pendiente) => (
               <li key={pendiente.asesoriaId}>
                 <Link
-                  href={`/tutoring/requests/${pendiente.solicitudId}`}
+                  href={`/tutoring/requests/detail?id=${pendiente.solicitudId}`}
                   className="flex min-h-[44px] items-center justify-between gap-2 rounded-lg border border-border-color bg-bg-surface px-3 py-2 text-sm text-text-main transition-colors duration-200 hover:border-brand-poli focus:outline-none focus:ring-2 focus:ring-brand-poli"
                 >
                   <span className="font-medium">{pendiente.tema}</span>

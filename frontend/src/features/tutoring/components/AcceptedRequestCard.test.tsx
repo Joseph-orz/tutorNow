@@ -54,7 +54,7 @@ describe('AcceptedRequestCard', () => {
     expect(screen.getByText(/aceptada el:/i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /ver asesor/i })).toHaveAttribute(
       'href',
-      '/tutoring/requests/3?from=agenda',
+      '/tutoring/requests/detail?id=3&from=agenda',
     );
   });
 
@@ -125,13 +125,13 @@ describe('AcceptedRequestCard', () => {
     render(
       <AcceptedRequestCard
         request={buildRequest()}
-        detailHref="/tutoring/requests/3?from=requests&vista=coordinacion"
+        detailHref="/tutoring/requests/detail?id=3&from=requests&vista=coordinacion"
       />,
     );
 
     expect(screen.getByRole('link', { name: /ver asesor/i })).toHaveAttribute(
       'href',
-      '/tutoring/requests/3?from=requests&vista=coordinacion',
+      '/tutoring/requests/detail?id=3&from=requests&vista=coordinacion',
     );
   });
 

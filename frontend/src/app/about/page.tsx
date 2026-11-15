@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { BookOpenCheck, GraduationCap, Mail, MessageSquare, Users } from "lucide-react";
+import { BackButton } from "@/components/ui/BackButton";
 
 export const metadata: Metadata = {
   title: "Acerca de | tutorNow",
@@ -35,6 +36,12 @@ export default function AboutPage() {
     <main className="flex min-h-screen flex-col bg-bg-primary">
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border-color bg-gradient-to-br from-[var(--hero-from)] to-[var(--hero-to)] px-4 py-16 text-white md:py-24">
+        <div
+          className="absolute left-4 z-20"
+          style={{ top: "calc(1rem + env(safe-area-inset-top, 0px))" }}
+        >
+          <BackButton />
+        </div>
         <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-6 text-center">
           <Image
             src="/logo-pjic.png"

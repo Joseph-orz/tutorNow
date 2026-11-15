@@ -53,7 +53,7 @@ describe('HistoryCard', () => {
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: /ver detalle/i })).toHaveAttribute(
       'href',
-      '/tutoring/requests/9',
+      '/tutoring/requests/detail?id=9',
     );
   });
 
@@ -61,13 +61,13 @@ describe('HistoryCard', () => {
     render(
       <HistoryCard
         request={buildRequest()}
-        detailHref="/tutoring/requests/9?from=requests&vista=historial"
+        detailHref="/tutoring/requests/detail?id=9&from=requests&vista=historial"
       />,
     );
 
     expect(screen.getByRole('link', { name: /ver detalle/i })).toHaveAttribute(
       'href',
-      '/tutoring/requests/9?from=requests&vista=historial',
+      '/tutoring/requests/detail?id=9&from=requests&vista=historial',
     );
   });
 

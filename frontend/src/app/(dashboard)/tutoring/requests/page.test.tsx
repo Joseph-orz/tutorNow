@@ -195,7 +195,7 @@ describe('TutoringRequestsPage', () => {
     expect(screen.getByRole('button', { name: /cancelar asesoría/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /ver asesoría/i })).toHaveAttribute(
       'href',
-      '/tutoring/requests/1?from=requests&vista=coordinacion',
+      '/tutoring/requests/detail?id=1&from=requests&vista=coordinacion',
     );
     await waitFor(() =>
       expect(tutoringApi.fetchTutoringRequests).toHaveBeenCalledWith(
@@ -235,7 +235,7 @@ describe('TutoringRequestsPage', () => {
     expect(screen.queryByRole('button', { name: /cancelar asesoría/i })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: /ver detalle/i })).toHaveAttribute(
       'href',
-      '/tutoring/requests/9?from=requests&vista=historial',
+      '/tutoring/requests/detail?id=9&from=requests&vista=historial',
     );
     await waitFor(() =>
       expect(tutoringApi.fetchTutoringRequests).toHaveBeenCalledWith(

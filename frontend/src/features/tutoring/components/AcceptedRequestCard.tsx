@@ -36,7 +36,7 @@ export function AcceptedRequestCard({ request, onUpdated, detailHref }: Accepted
   const miResena = request.asesoria?.miResena ?? null;
   const pendientePorCalificar = request.asesoria?.estado === 'FINALIZADA' && !miResena;
   const esperandoContraparte = request.asesoria?.estado === 'FINALIZADA' && miResena != null;
-  const detailUrl = detailHref ?? `/tutoring/requests/${request.id}?from=agenda`;
+  const detailUrl = detailHref ?? `/tutoring/requests/detail?id=${request.id}&from=agenda`;
 
   return (
     <article className="flex h-full flex-col gap-3 rounded-2xl border border-border-color bg-bg-surface p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-success hover:shadow-lg md:p-6">

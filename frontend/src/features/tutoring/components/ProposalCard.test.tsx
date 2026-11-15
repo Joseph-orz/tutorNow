@@ -94,7 +94,7 @@ describe('ProposalCard', () => {
     const link = screen.getByRole('link', { name: /ver perfil/i });
     expect(link).toHaveAttribute(
       'href',
-      '/tutoring/tutors/3?solicitud=7&proposal=10',
+      '/tutoring/tutors/detail?id=3&solicitud=7&proposal=10',
     );
   });
 
@@ -104,6 +104,6 @@ describe('ProposalCard', () => {
     );
 
     const link = screen.getByRole('link', { name: /ver perfil/i });
-    expect(link).toHaveAttribute('href', '/tutoring/tutors/3');
+    expect(link).toHaveAttribute('href', '/tutoring/tutors/detail?id=3');
   });
 });

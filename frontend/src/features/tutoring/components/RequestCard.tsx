@@ -60,7 +60,7 @@ export function RequestCard({ request }: RequestCardProps) {
         <div className="flex items-center gap-1">
           <ReportButton tipo="PUBLICACION" targetId={request.id} />
           <Link
-            href={`/tutoring/requests/${request.id}`}
+            href={`/tutoring/requests/detail?id=${request.id}`}
             className="inline-flex min-h-[44px] items-center gap-1 rounded-lg px-2 text-sm font-semibold text-brand-poli transition-colors duration-200 hover:bg-brand-poli/10 focus:outline-none focus:ring-2 focus:ring-brand-poli"
           >
             Ver detalle
