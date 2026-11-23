@@ -32,6 +32,8 @@ management:
         enabled: true
 
 app:
+  cors:
+    allowed-origins: ${APP_CORS_ORIGINS:http://localhost,http://localhost:*,http://127.0.0.1,http://127.0.0.1:*,capacitor://localhost,ionic://localhost,https://*.app.github.dev}
   jwt:
     secret: ${JWT_SECRET:VGhpc0lzQURldmVsb3BtZW50U2VjcmV0S2V5Rm9yVHV0b3JOb3dBcHBsaWNhdGlvbjEyMzQ1Njc4OTA=}
     expiration-ms: 86400000
