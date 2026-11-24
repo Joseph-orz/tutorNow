@@ -2,6 +2,7 @@ package co.edu.epi.tutornow.auth.service;
 
 import co.edu.epi.tutornow.dev.SimulatedEmailStore;
 import co.edu.epi.tutornow.users.model.Usuario;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,6 +55,19 @@ public class EmailService {
 
     public EmailService(SimulatedEmailStore simulatedEmailStore) {
         this.simulatedEmailStore = simulatedEmailStore;
+    }
+
+    /**
+     * Deja constancia en los logs del arranque de si el envio real esta activo.
+     * Facilita diagnosticar despliegues donde falta la variable RESEND_API_KEY.
+     */
+    @PostConstruct
+    void logMailConfiguration() {
+        if (resendApiKey == null || resendApiKey.isBlank()) {
+            log.warn("[MAIL] RESEND_API_KEY vacia: los correos solo se guardaran en la bandeja simulada (/dev/inbox).");
+        } else {
+            log.info("[MAIL] Resend configurado: se enviaran correos reales desde '{}'.", fromAddress);
+        }
     }
 
     public void sendVerificationEmail(Usuario usuario) {
