@@ -49,7 +49,10 @@ jobs:
         working-directory: ${{ env.BACKEND_DIR }}
         run: mvn -B verify --file pom.xml
 
+      # Escaneo informativo: no bloquea el PR si NIST (NVD) limita las descargas.
+      # Para que sea bloqueante, configurar NVD_API_KEY y quitar continue-on-error.
       - name: Security Scan (OWASP Dependency Check)
+        continue-on-error: true
         uses: dependency-check/Dependency-Check_Action@main
         with:
           project: 'tutornow-backend'
@@ -62,7 +65,7 @@ jobs:
         if: always()
         with:
           name: security-report
-          path: backend/reports/
+          path: reports/
           retention-days: 30
 
   integration-test:
